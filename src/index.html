@@ -10,17 +10,40 @@
 <body>
     <div class="wrapper">
         <div class="left-section">
+            <div class="add-project-btn">
+                <button type="button">Add Project</button>
+            </div>
             <div class="overwiev">
                 <div class="project">
                     <h3> Irres Projekt</h3>
+                    <p>Das ist ein irres Projekt</p>
                 </div>
+                <br>
                 <div class="project">
                     <h3> Spannendes Projekt</h3>
+                    <p>Das ist ein spannendes Projekt</p>
                 </div>
             </div>
         </div>
         <div class="right-section">Rechts</div>
     </div>
+    <dialog id="add-project">
+        <form method="dialog">
+            <header>
+                <h3>Add New Project</h3>
+            </header>
+            <form action="submit">
+                <label for="project-title">Title:</label><br>
+                <input type="text" id="project-title" name="project-title"><br>
+                <label for="description">Description:</label><br>
+                <textarea id="description" name="description" rows="4" cols="20"></textarea>
+            </form>
+            <div>
+                <button class="cancel" type="button">Cancel</button>
+                <button class="confirm" type="button">Confirm</button>
+            </div>
+        </form>
+    </dialog>
 </body>
 
 </html>

@@ -35,7 +35,7 @@ module.exports = {
             directory: path.join(__dirname, 'public'),
         },
         watchFiles: {
-            paths: ['src/index.html', 'src/index.js', 'src/style.css'],
+            paths: ['src/index.html', 'src/index.js', 'src/style.css', 'src/changeDom.js'],
             options: {
                 usePolling: false,
             },

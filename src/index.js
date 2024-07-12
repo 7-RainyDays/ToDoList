@@ -1,5 +1,8 @@
 import './style.css';
+import domHandler from './changeDom.js';
 
-function test() {
-    { };
-}
+document.addEventListener("DOMContentLoaded", () => {
+    const handler = domHandler();
+    handler.addProject();
+    handler.addBtnListeners();
+});

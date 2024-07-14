@@ -25,8 +25,11 @@
                 </div>
             </div>
         </div>
-        <div class="right-section">Rechts</div>
+        <div class="right-section">Rechts
+            <button class="add-todo-btns" type="button">New TODO</button>
+        </div>
     </div>
+
     <dialog id="add-project">
         <form method="dialog">
             <header>
@@ -37,6 +40,33 @@
                 <input type="text" id="project-title" name="project-title"><br>
                 <label for="description">Description:</label><br>
                 <textarea id="description" name="description" rows="4" cols="20"></textarea>
+            </form>
+            <div>
+                <button class="cancel" type="button">Cancel</button>
+                <button class="confirm" type="button">Confirm</button>
+            </div>
+        </form>
+    </dialog>
+    <dialog id="add-todo">
+        <form method="dialog">
+            <header>
+                <h3>Add New To-Do</h3>
+            </header>
+            <form action="submit">
+                <label for="project-title">Title:</label><br>
+                <input type="text" id="project-title" name="project-title"><br>
+
+                <label for="dueDate">Due Date:</label><br>
+                <input type="date" id="dueDate" name="dueDate"><br>
+
+                <label for="priority">Priority:</label><br>
+                <select id="priority" name="priority">
+                    <option value="high">High</option>
+                    <option value="medium">Medium</option>
+                    <option value="low">Low</option>
+                </select><br>
+                <label for="notes">Extra Notes:</label><br>
+                <textarea id="notes" name="notes" rows="4" cols="20"></textarea>
             </form>
             <div>
                 <button class="cancel" type="button">Cancel</button>

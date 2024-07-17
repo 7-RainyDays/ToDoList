@@ -1,7 +1,7 @@
 jobs:
 
-Punkt 3.
-add Todos to projects.
+Bugs:
 
-
-delete Projects/Todos
+standart project startet bei 2? 
+es wird rechts immer das standart projekt angezeigt.
+=> Der Zuweisungsoperator war falsch, = anstell von === verwendet.

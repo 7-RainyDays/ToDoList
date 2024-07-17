@@ -1,21 +1,25 @@
 export class Project {
 
-    constructor() {
+    constructor(projectID, title, description) {
+        this.projectID = projectID;
         this.title = title;
         this.description = description;
-    }
-
-    deleteEntry(params) {
-        { };
+        this.todoArray = [];
     };
-}
 
-
-export class ToDoList extends Project {
-
-    constructor() {
-        this.dueDate = dueDate;
-        this.priority = priority;
-        this.notes = notes;
+    initializeTodo(name, dueDate, priority, notes) {
+        const newTodo = new Todo(name, dueDate, priority, notes);
+        todoArray.push(newTodo);
     }
 }
+
+
+class Todo {
+    constructor(name, dueDate, priority, notes) {
+        self.name = name;
+        self.dueDate = dueDate;
+        self.priority = priority;
+        self.notes = notes;
+    }
+}
+

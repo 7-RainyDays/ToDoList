@@ -14,66 +14,74 @@
                 <button type="button">Add Project</button>
             </div>
             <div class="overwiev">
-                <div class="project">
+                <div class="project" data-project-id="1">
                     <h3> Irres Projekt</h3>
                     <p>Das ist ein irres Projekt</p>
                 </div>
-                <br>
-                <div class="project">
-                    <h3> Spannendes Projekt</h3>
-                    <p>Das ist ein spannendes Projekt</p>
+                <div class="change-project">
+                    <button class='add-todo-to-project' type="button">Add Todo</button>
+                    <button class='edit-project' type="button">Edit</button>
+                    <button class='delete-project' type="button">Delete</button>
                 </div>
             </div>
         </div>
-        <div class="right-section">Rechts
-            <button class="add-todo-btns" type="button">New TODO</button>
+        <div class="right-section">Rechts+
+            <div class="project-details">
+                <h3 class="header-details">Project Title</h3>
+                <p class="">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Perspiciatis, numquam beatae at
+                    nostrum
+                    eveniet neque? Esse doloribus quibusdam perspiciatis maiores?</p>
+            </div>
+            <div class="container-todos">
+                <h3>Your Current Todos for the Project</h3>
+                <ul class="to-do-list">
+                </ul>
+            </div>
         </div>
-    </div>
-
-    <dialog id="add-project">
-        <form method="dialog">
-            <header>
-                <h3>Add New Project</h3>
-            </header>
-            <form action="submit">
-                <label for="project-title">Title:</label><br>
-                <input type="text" id="project-title" name="project-title"><br>
-                <label for="description">Description:</label><br>
-                <textarea id="description" name="description" rows="4" cols="20"></textarea>
+        <dialog id="add-project-dialog">
+            <form method="dialog">
+                <header>
+                    <h3>Add New Project</h3>
+                </header>
+                <form action="submit">
+                    <label for="project-title">Title:</label><br>
+                    <input type="text" id="project-title" name="project-title"><br>
+                    <label for="description">Description:</label><br>
+                    <textarea id="description" name="description" rows="4" cols="20"></textarea>
+                </form>
+                <div>
+                    <button class="cancel" type="button">Cancel</button>
+                    <button class="confirm-project" type="button">Confirm</button>
+                </div>
             </form>
-            <div>
-                <button class="cancel" type="button">Cancel</button>
-                <button class="confirm" type="button">Confirm</button>
-            </div>
-        </form>
-    </dialog>
-    <dialog id="add-todo">
-        <form method="dialog">
-            <header>
-                <h3>Add New To-Do</h3>
-            </header>
-            <form action="submit">
-                <label for="project-title">Title:</label><br>
-                <input type="text" id="project-title" name="project-title"><br>
+        </dialog>
+        <dialog id="add-todo-dialog">
+            <form method="dialog">
+                <header>
+                    <h3>Add New To-Do</h3>
+                </header>
+                <form action="submit">
+                    <label for="project-title">Title:</label><br>
+                    <input type="text" id="project-title" name="project-title"><br>
 
-                <label for="dueDate">Due Date:</label><br>
-                <input type="date" id="dueDate" name="dueDate"><br>
+                    <label for="dueDate">Due Date:</label><br>
+                    <input type="date" id="dueDate" name="dueDate"><br>
 
-                <label for="priority">Priority:</label><br>
-                <select id="priority" name="priority">
-                    <option value="high">High</option>
-                    <option value="medium">Medium</option>
-                    <option value="low">Low</option>
-                </select><br>
-                <label for="notes">Extra Notes:</label><br>
-                <textarea id="notes" name="notes" rows="4" cols="20"></textarea>
+                    <label for="priority">Priority:</label><br>
+                    <select id="priority" name="priority">
+                        <option value="high">High</option>
+                        <option value="medium">Medium</option>
+                        <option value="low">Low</option>
+                    </select><br>
+                    <label for="notes">Extra Notes:</label><br>
+                    <textarea id="notes" name="notes" rows="4" cols="20"></textarea>
+                </form>
+                <div>
+                    <button class="cancel" type="button">Cancel</button>
+                    <button class="confirm-todo" type="button">Confirm</button>
+                </div>
             </form>
-            <div>
-                <button class="cancel" type="button">Cancel</button>
-                <button class="confirm" type="button">Confirm</button>
-            </div>
-        </form>
-    </dialog>
+        </dialog>
 </body>
 
 </html>

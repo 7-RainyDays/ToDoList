@@ -1,71 +1,147 @@
-import { ToDoList } from "./project";
+//display todos funktioniert noch nicht richtig:;
+
+import { Project } from "./project";
+
 
 const domHandler = () => {
 
-    const dialogNewProject = document.getElementById('add-project');
-    const dialogNewTodo = document.getElementById('add-todo');
-    const allProjects = document.querySelector('.overwiev');
+    const projectArray = []; //Array Brackets != Object Brackets;
+    const defaultProject = new Project('1', 'Your First Project', 'I got things to do.')
+    projectArray.push(defaultProject);
+
+    //dialogs
+    const dialogNewProject = document.getElementById('add-project-dialog');
+    const dialogAddTodo = document.getElementById('add-todo-dialog');
+
+    //left section 
+    const allProjectsDiv = document.querySelector('.overwiev');
 
     //buttons
     const newProjectBtn = document.querySelector('.add-project-btn');
-    const newTodoBtns = document.getElementsByClassName('add-todo-btns');
-    const submitBtns = document.getElementsByClassName('confirm')
+    const btnsSubmitPro = document.getElementsByClassName('confirm-project');
+    const btnsSubmitTodo = document.getElementsByClassName('confirm-todo');
     const cancelBtns = document.getElementsByClassName('cancel');
 
-    //display projects on DOM
-    const displayProjects = (title, description) => {
-        const project = document.createElement('div');
-        project.setAttribute('class', 'project');
+    //right Section
+    const projectDetails = document.querySelector('.project-details');
+    const children = projectDetails.children;
+    const rightTodos = document.querySelector('.container-todos');
+    const listTodos = document.querySelector('.to-do-list');
 
+    //DOM MANIPULATION
 
-        const a = document.createElement('h3');
-        a.innerHTML = title;
-
-        const b = document.createElement('p');
-        b.innerHTML = description;
-
-        project.appendChild(a);
-        project.appendChild(b);
-        allProjects.appendChild(project);
+    const displayRightSide = (proj) => {
+        children[0].innerHTML = proj.title;
+        children[1].innerHTML = proj.description;
     }
 
-    //multiple modals soon, needs flexibility
-    const addProject = () => {
+    //display projects on DOM
+    const displayNewProjects = (proj) => {
+        const projectDiv = document.createElement('div');
+        projectDiv.setAttribute('class', 'project');
+
+        projectDiv.setAttribute('data-project-id', proj.projectID);
+
+        const header = document.createElement('h3');
+        header.innerHTML = proj.title;
+
+        const notes = document.createElement('p');
+        notes.innerHTML = proj.description;
+
+        const changeProject = document.createElement('div')
+        changeProject.setAttribute('class', 'change-project');
+
+        const btnAddTodo = document.createElement('button');
+        btnAddTodo.setAttribute('class', 'add-todo-to-project');
+        btnAddTodo.setAttribute('type', 'button');
+        btnAddTodo.innerHTML = 'Add Todo';
+
+        const btnEditProject = document.createElement('button');
+        btnEditProject.setAttribute('class', 'edit-project');
+        btnEditProject.setAttribute('type', 'button');
+        btnEditProject.innerHTML = 'Edit';
+
+        const btnDeleteProject = document.createElement('button');
+        btnDeleteProject.setAttribute('class', 'delete-project');
+        btnDeleteProject.setAttribute('type', 'button');
+        btnDeleteProject.innerHTML = 'Delete';
+
+        changeProject.appendChild(btnAddTodo);
+        changeProject.appendChild(btnEditProject);
+        changeProject.appendChild(btnDeleteProject);
+
+        projectDiv.appendChild(header);
+        projectDiv.appendChild(notes);
+        projectDiv.appendChild(changeProject);
+        allProjectsDiv.appendChild(projectDiv);
+    };
+
+
+    //EVENT LISTENERS 
+
+    (function addSubmitTodoListener() {
+        { }
+    })
+    //handle add project button 
+    const BtnAddProject = () => {
         newProjectBtn.addEventListener("click", () => {
             dialogNewProject.showModal();
         });
     };
 
-    const addTodo = () => {
-        Array.from(newTodoBtns).forEach(btn => {
-            btn.addEventListener("click", () => {
-                dialogNewTodo.showModal();
-            });
-        });
-    };
+    //Handle project click -> either projectEdit OR show project details
+    (function handleProjectClick() {
+        allProjectsDiv.addEventListener('click', event => {
+            if (event.target.tagName === 'BUTTON') {
+                switch (event.target.className) {
+                    case 'add-todo-to-project':
+                        addTodo();
+                        break;
+                    case 'edit-project':
+                        alert('edit');
+                        break;
+                    case 'delete-project':
+                        alert('delete');
+                        break;
+                };
+            } else {
+                const selectedProject = event.target.closest('div');
+                const id = selectedProject.getAttribute('data-project-id');
+                const finalConst = projectArray.find((pro) => pro.projectID === id);
+                displayRightSide(finalConst);
+            }
+        })
+    })();
 
-    //add button listeners for cancel/submit
-
-    //irgendwie felxibler formatieren, da bisher nur add Project buttons angesprochen werden.
-    const addBtnListeners = () => {
+    //add cancel button listener
+    (function addCancelBtnsListener() {
         Array.from(cancelBtns).forEach(btn => {
             btn.addEventListener("click", event => {
                 const dialog = event.currentTarget.closest('dialog');
                 dialog.close("cancel action");
             })
-        });
+        })
+    })();
 
-        Array.from(submitBtns).forEach(btn => {
+    //add submit Project button listener
+    const addSumbmitProjListener = () => {
+
+        Array.from(btnsSubmitPro).forEach(btn => {
             btn.addEventListener("click", () => {
+
                 const projectTitle = document.getElementById('project-title').value;
                 const projectDescription = document.getElementById('description').value;
-                displayProjects(projectTitle, projectDescription);
+                const projectID = (projectArray.length + 1).toString() //toSting mit () :))
+                const newProject = new Project(projectID, projectTitle, projectDescription);
+                projectArray.push(newProject);
+                displayNewProjects(newProject);
                 dialogNewProject.close("confirmed entry");
             })
         });
     }
-    return { addProject, addTodo, addBtnListeners };
+
+    return { BtnAddProject, addBtnListeners: addSumbmitProjListener };
 };
 
-
 export default domHandler;
+

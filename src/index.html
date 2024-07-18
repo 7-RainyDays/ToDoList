@@ -13,15 +13,15 @@
             <div class="add-project-btn">
                 <button type="button">Add Project</button>
             </div>
-            <div class="overwiev">
+            <div class="all-projects-con">
                 <div class="project" data-project-id="1">
                     <h3> Irres Projekt</h3>
                     <p>Das ist ein irres Projekt</p>
-                </div>
-                <div class="change-project">
-                    <button class='add-todo-to-project' type="button">Add Todo</button>
-                    <button class='edit-project' type="button">Edit</button>
-                    <button class='delete-project' type="button">Delete</button>
+                    <div class="change-project">
+                        <button class='add-todo-to-project' type="button">Add Todo</button>
+                        <button class='edit-project' type="button">Edit</button>
+                        <button class='delete-project' type="button">Delete</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -61,11 +61,11 @@
                     <h3>Add New To-Do</h3>
                 </header>
                 <form action="submit">
-                    <label for="project-title">Title:</label><br>
-                    <input type="text" id="project-title" name="project-title"><br>
+                    <label for="todo-name">Title:</label><br>
+                    <input type="text" id="todo-name" name="todo-name"><br>
 
-                    <label for="dueDate">Due Date:</label><br>
-                    <input type="date" id="dueDate" name="dueDate"><br>
+                    <label for="due-date">Due Date:</label><br>
+                    <input type="date" id="due-date" name="due-date"><br>
 
                     <label for="priority">Priority:</label><br>
                     <select id="priority" name="priority">

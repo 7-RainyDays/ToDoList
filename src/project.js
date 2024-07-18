@@ -9,17 +9,17 @@ export class Project {
 
     initializeTodo(name, dueDate, priority, notes) {
         const newTodo = new Todo(name, dueDate, priority, notes);
-        todoArray.push(newTodo);
+        this.todoArray.push(newTodo);
     }
 }
 
 
-class Todo {
+export class Todo {
     constructor(name, dueDate, priority, notes) {
-        self.name = name;
-        self.dueDate = dueDate;
-        self.priority = priority;
-        self.notes = notes;
+        this.name = name;
+        this.dueDate = dueDate;
+        this.priority = priority;
+        this.notes = notes;
     }
 }
 

@@ -5,3 +5,6 @@ Bugs:
 standart project startet bei 2? 
 es wird rechts immer das standart projekt angezeigt.
 => Der Zuweisungsoperator war falsch, = anstell von === verwendet.
+
+Add Todo funktionieren lassen.
+// das aktuelle objekt in currentProjekt speichern 

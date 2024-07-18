@@ -1,10 +1,11 @@
 //display todos funktioniert noch nicht richtig:;
 
-import { Project } from "./project";
+import { Project, Todo } from "./project";
 
 
 const domHandler = () => {
 
+    let currentProject = "";
     const projectArray = []; //Array Brackets != Object Brackets;
     const defaultProject = new Project('1', 'Your First Project', 'I got things to do.')
     projectArray.push(defaultProject);
@@ -14,13 +15,13 @@ const domHandler = () => {
     const dialogAddTodo = document.getElementById('add-todo-dialog');
 
     //left section 
-    const allProjectsDiv = document.querySelector('.overwiev');
+    const allProjectsDiv = document.querySelector('.all-projects-con');
 
     //buttons
-    const newProjectBtn = document.querySelector('.add-project-btn');
+    const btnNewProject = document.querySelector('.add-project-btn');
     const btnsSubmitPro = document.getElementsByClassName('confirm-project');
     const btnsSubmitTodo = document.getElementsByClassName('confirm-todo');
-    const cancelBtns = document.getElementsByClassName('cancel');
+    const btnsCancel = document.getElementsByClassName('cancel');
 
     //right Section
     const projectDetails = document.querySelector('.project-details');
@@ -33,7 +34,7 @@ const domHandler = () => {
     const displayRightSide = (proj) => {
         children[0].innerHTML = proj.title;
         children[1].innerHTML = proj.description;
-    }
+    };
 
     //display projects on DOM
     const displayNewProjects = (proj) => {
@@ -76,26 +77,48 @@ const domHandler = () => {
         allProjectsDiv.appendChild(projectDiv);
     };
 
+    const displayTodos = () => {
+
+    }
 
     //EVENT LISTENERS 
 
+    //logic to add todos with dialog
     (function addSubmitTodoListener() {
-        { }
-    })
+        Array.from(btnsSubmitTodo).forEach(todo => {
+
+            todo.addEventListener('click', event => {
+                const respectiveProject = event.target.closest('.project')//.getAttribute('data-project-id');
+                const todoName = document.getElementById('todo-name').value;
+                const todoDueDate = document.getElementById('due-date').value;
+                const priority = document.getElementById('priority').value;
+                const notes = document.getElementById('notes').value;
+                currentProject.initializeTodo(todoName, todoDueDate, priority, notes);
+                dialogAddTodo.close('submitted new Todo')
+            });
+        });
+    })();
+
     //handle add project button 
-    const BtnAddProject = () => {
-        newProjectBtn.addEventListener("click", () => {
+    const btnAddProject = () => {
+        btnNewProject.addEventListener("click", () => {
             dialogNewProject.showModal();
         });
     };
 
+    const updateCurrentProject = (id) => {
+        currentProject = projectArray.find((pro) => pro.projectID === id);
+    }
+
     //Handle project click -> either projectEdit OR show project details
     (function handleProjectClick() {
         allProjectsDiv.addEventListener('click', event => {
+            const selectedProject = (event.target.closest('.project')).getAttribute('data-project-id');
+            updateCurrentProject(selectedProject);
             if (event.target.tagName === 'BUTTON') {
                 switch (event.target.className) {
                     case 'add-todo-to-project':
-                        addTodo();
+                        dialogAddTodo.showModal();
                         break;
                     case 'edit-project':
                         alert('edit');
@@ -105,17 +128,14 @@ const domHandler = () => {
                         break;
                 };
             } else {
-                const selectedProject = event.target.closest('div');
-                const id = selectedProject.getAttribute('data-project-id');
-                const finalConst = projectArray.find((pro) => pro.projectID === id);
-                displayRightSide(finalConst);
+                displayRightSide(currentProject);
             }
         })
     })();
 
     //add cancel button listener
     (function addCancelBtnsListener() {
-        Array.from(cancelBtns).forEach(btn => {
+        Array.from(btnsCancel).forEach(btn => {
             btn.addEventListener("click", event => {
                 const dialog = event.currentTarget.closest('dialog');
                 dialog.close("cancel action");
@@ -140,7 +160,7 @@ const domHandler = () => {
         });
     }
 
-    return { BtnAddProject, addBtnListeners: addSumbmitProjListener };
+    return { BtnAddProject: btnAddProject, addBtnListeners: addSumbmitProjListener };
 };
 
 export default domHandler;

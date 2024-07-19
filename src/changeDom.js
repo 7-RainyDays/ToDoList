@@ -77,27 +77,48 @@ const domHandler = () => {
         allProjectsDiv.appendChild(projectDiv);
     };
 
-    const displayTodos = () => {
+    const displayTodos = (todoArray) => {
+        todoArray.forEach(todo => {
+            const listItem = document.createElement('li');
+            listItem.setAttribute('class', todo);
+            listItem.innerHTML = `Name: ${todo.name} , Due Date: ${todo.dueDate}, Priority: ${todo.dueDate}, Notes: ${todo.notes}`;
 
+            const deleteTodo = document.createElement('Button')
+            deleteTodo.setAttribute('type', 'button');
+            deleteTodo.setAttribute('class', 'delete');
+            deleteTodo.innerHTML = 'delete';
+
+            const editTodo = document.createElement('Button')
+            editTodo.setAttribute('type', 'button');
+            editTodo.setAttribute('class', 'delete');
+            editTodo.innerHTML = 'edit';
+
+            listItem.appendChild(deleteTodo);
+            listItem.appendChild(editTodo);
+            listTodos.appendChild(listItem);
+        });
     }
 
-    //EVENT LISTENERS 
+    const cleanTodoList =
 
-    //logic to add todos with dialog
-    (function addSubmitTodoListener() {
-        Array.from(btnsSubmitTodo).forEach(todo => {
+        //EVENT LISTENERS 
 
-            todo.addEventListener('click', event => {
-                const respectiveProject = event.target.closest('.project')//.getAttribute('data-project-id');
-                const todoName = document.getElementById('todo-name').value;
-                const todoDueDate = document.getElementById('due-date').value;
-                const priority = document.getElementById('priority').value;
-                const notes = document.getElementById('notes').value;
-                currentProject.initializeTodo(todoName, todoDueDate, priority, notes);
-                dialogAddTodo.close('submitted new Todo')
+        //logic to add todos with dialog
+        (function addSubmitTodoListener() {
+            Array.from(btnsSubmitTodo).forEach(todo => {
+
+                todo.addEventListener('click', event => {
+                    const respectiveProject = event.target.closest('.project')//.getAttribute('data-project-id');
+                    const todoName = document.getElementById('todo-name').value.trim();
+                    const todoDueDate = document.getElementById('due-date').value.trim();
+                    const priority = document.getElementById('priority').value.trim();
+                    const notes = document.getElementById('notes').value.trim();
+                    currentProject.initializeTodo(todoName, todoDueDate, priority, notes);
+                    dialogAddTodo.close('submitted new Todo')
+                    displayTodos(currentProject.todoArray);
+                });
             });
-        });
-    })();
+        })();
 
     //handle add project button 
     const btnAddProject = () => {
@@ -149,8 +170,8 @@ const domHandler = () => {
         Array.from(btnsSubmitPro).forEach(btn => {
             btn.addEventListener("click", () => {
 
-                const projectTitle = document.getElementById('project-title').value;
-                const projectDescription = document.getElementById('description').value;
+                const projectTitle = document.getElementById('project-title').value.trim();
+                const projectDescription = document.getElementById('description').value.trim();
                 const projectID = (projectArray.length + 1).toString() //toSting mit () :))
                 const newProject = new Project(projectID, projectTitle, projectDescription);
                 projectArray.push(newProject);

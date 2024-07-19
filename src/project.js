@@ -11,6 +11,10 @@ export class Project {
         const newTodo = new Todo(name, dueDate, priority, notes);
         this.todoArray.push(newTodo);
     }
+
+    deleteTodo(i) {
+        this.todoArray.splice(i, 1);
+    }
 }
 
 

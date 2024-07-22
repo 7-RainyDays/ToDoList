@@ -8,3 +8,10 @@ es wird rechts immer das standart projekt angezeigt.
 
 Add Todo funktionieren lassen.
 // das aktuelle objekt in currentProjekt speichern 
+
+todos entsprechend bearbeiten können
+
+//TODOS werden nach dem Project switch nicht angezeigt,
+//update Project
+//todos mit checkox
+//reset form after entry

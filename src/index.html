@@ -39,16 +39,14 @@
             </div>
         </div>
         <dialog id="add-project-dialog">
-            <form method="dialog">
+            <form id="project-form" method="dialog">
                 <header>
                     <h3>Add New Project</h3>
                 </header>
-                <form action="submit">
-                    <label for="project-title">Title:</label><br>
-                    <input type="text" id="project-title" name="project-title"><br>
-                    <label for="description">Description:</label><br>
-                    <textarea id="description" name="description" rows="4" cols="20"></textarea>
-                </form>
+                <label for="project-title">Title:</label><br>
+                <input type="text" id="project-title" name="project-title"><br>
+                <label for="description">Description:</label><br>
+                <textarea id="description" name="description" rows="4" cols="20"></textarea>
                 <div>
                     <button class="cancel" type="button">Cancel</button>
                     <button class="confirm-project" type="button">Confirm</button>
@@ -56,29 +54,52 @@
             </form>
         </dialog>
         <dialog id="add-todo-dialog">
-            <form method="dialog">
+            <form id="todo-form" method="dialog">
                 <header>
                     <h3>Add New To-Do</h3>
                 </header>
-                <form action="submit">
-                    <label for="todo-name">Title:</label><br>
-                    <input type="text" id="todo-name" name="todo-name"><br>
+                <label for="todo-name">Title:</label><br>
+                <input type="text" id="todo-name" name="todo-name"><br>
 
-                    <label for="due-date">Due Date:</label><br>
-                    <input type="date" id="due-date" name="due-date"><br>
+                <label for="due-date">Due Date:</label><br>
+                <input type="date" id="due-date" name="due-date"><br>
 
-                    <label for="priority">Priority:</label><br>
-                    <select id="priority" name="priority">
-                        <option value="high">High</option>
-                        <option value="medium">Medium</option>
-                        <option value="low">Low</option>
-                    </select><br>
-                    <label for="notes">Extra Notes:</label><br>
-                    <textarea id="notes" name="notes" rows="4" cols="20"></textarea>
-                </form>
+                <label for="priority">Priority:</label><br>
+                <select id="priority" name="priority">
+                    <option value="high">High</option>
+                    <option value="medium">Medium</option>
+                    <option value="low">Low</option>
+                </select><br>
+                <label for="notes">Extra Notes:</label><br>
+                <textarea id="notes" name="notes" rows="4" cols="20"></textarea>
                 <div>
                     <button class="cancel" type="button">Cancel</button>
                     <button class="confirm-todo" type="button">Confirm</button>
+                </div>
+            </form>
+        </dialog>
+        <dialog id="edit-todo-dialog">
+            <form id="edit-todo-form" method="dialog">
+                <header>
+                    <h3>Edit To-Do</h3>
+                </header>
+                <label for="edit-todo-name">Title:</label><br>
+                <input type="text" id="edit-todo-name" name="edit-todo-name"><br>
+
+                <label for="edit-due-date">Due Date:</label><br>
+                <input type="date" id="edit-due-date" name="edit-due-date"><br>
+
+                <label for="edit-priority">Priority:</label><br>
+                <select id="edit-priority" name="edit-priority">
+                    <option value="high">High</option>
+                    <option value="medium">Medium</option>
+                    <option value="low">Low</option>
+                </select><br>
+                <label for="edit-notes">Extra Notes:</label><br>
+                <textarea id="edit-notes" name="edit-notes" rows="4" cols="20"></textarea>
+                <div>
+                    <button class="cancel" type="button">Cancel</button>
+                    <button class="confirm-edit-todo" type="button">Confirm</button>
                 </div>
             </form>
         </dialog>

@@ -1,21 +1,21 @@
-import { Project, Todo } from "./project";
+import { Project, Todo, projectArray } from "./project";
 
 
 const domHandler = () => {
 
     let currentProject = "";
     let currentTodo = "";
-    const projectArray = [];
-    const defaultProject = new Project('1', 'Your First Project', 'I got things to do.')
-    projectArray.push(defaultProject);
 
     //dialogs
     const dialogNewProject = document.getElementById('add-project-dialog');
+    const dialogEditProject = document.getElementById('edit-project-dialog');
     const dialogAddTodo = document.getElementById('add-todo-dialog');
     const dialogEditTodo = document.getElementById('edit-todo-dialog');
 
     //form
     const proForm = document.getElementById('project-form');
+    const editProForm = document.getElementById('edit-project-form');
+
     const todoForm = document.getElementById('todo-form');
     const editTodoForm = document.getElementById('edit-todo-form');
 
@@ -25,6 +25,7 @@ const domHandler = () => {
     //buttons
     const btnNewProject = document.querySelector('.add-project-btn');
     const btnsSubmitPro = document.getElementsByClassName('confirm-project');
+    const btnSubmitEditedPro = document.querySelector('.confirm-edit-project');
     const btnsSubmitTodo = document.getElementsByClassName('confirm-todo');
     const btnsSubmitEditedTodo = document.querySelector('.confirm-edit-todo');
     const btnsCancel = document.getElementsByClassName('cancel');
@@ -32,14 +33,18 @@ const domHandler = () => {
     //right Section
     const projectDetails = document.querySelector('.project-details');
     const children = projectDetails.children;
-    const rightTodos = document.querySelector('.container-todos');
     const listTodos = document.querySelector('.to-do-list');
 
-    //edit Todo Dialog Values
+    //edit Project and Todo Dialog Values
+    const editProTitle = document.getElementById('edit-project-title');
+    const editProDescription = document.getElementById('edit-description');
     const editTodoName = document.getElementById('edit-todo-name');
     const editTodoDueDate = document.getElementById('edit-due-date');
     const editPriority = document.getElementById('edit-priority');
     const editNotes = document.getElementById('edit-notes');
+
+    const projectHeaders = document.getElementsByClassName('display-project-title');
+    const projectHeaderDescr = document.querySelector('.display-project-description');
 
     //DOM MANIPULATION
 
@@ -63,27 +68,29 @@ const domHandler = () => {
         projectDiv.setAttribute('data-project-id', proj.projectID);
 
         const header = document.createElement('h3');
+        header.classList.add("display-project-title");
         header.innerHTML = proj.title;
 
         const notes = document.createElement('p');
+        notes.classList.add("display-project-description");
         notes.innerHTML = proj.description;
 
         const changeProject = document.createElement('div')
-        changeProject.setAttribute('class', 'change-project');
+        changeProject.classList.add('change-project');
 
         const btnAddTodo = document.createElement('button');
-        btnAddTodo.setAttribute('class', 'add-todo-to-project');
-        btnAddTodo.setAttribute('type', 'button');
+        btnAddTodo.classList.add('add-todo-to-project');
+        btnAddTodo.type = 'button';
         btnAddTodo.innerHTML = 'Add Todo';
 
         const btnEditProject = document.createElement('button');
-        btnEditProject.setAttribute('class', 'edit-project');
-        btnEditProject.setAttribute('type', 'button');
+        btnEditProject.classList.add('edit-project');
+        btnEditProject.type = 'button';
         btnEditProject.innerHTML = 'Edit';
 
         const btnDeleteProject = document.createElement('button');
-        btnDeleteProject.setAttribute('class', 'delete-project');
-        btnDeleteProject.setAttribute('type', 'button');
+        btnDeleteProject.classList.add('delete-project');
+        btnDeleteProject.type = 'button';
         btnDeleteProject.innerHTML = 'Delete';
 
         changeProject.appendChild(btnAddTodo);
@@ -115,10 +122,6 @@ const domHandler = () => {
             toBeDeleted.type = 'button';
             toBeDeleted.classList.add('delete');
             toBeDeleted.innerHTML = 'delete';
-
-            //hier removeTodoDOM(i) führt zu einem sofortigen Funktionsaufruf, und schließlich zum Fehler
-            //problematisch: .addEventListener("click", () => removeTodoDOM(i));
-            //anonyme Funktion () besser, da diese erst beim Click ausgeführt wird
             toBeDeleted.addEventListener("click", () => removeTodoDOM(i));
 
             const toBeEdited = document.createElement('Button')
@@ -142,30 +145,26 @@ const domHandler = () => {
         dialogEditTodo.showModal();
     };
 
-    (function submitEditedTodo() {
-        btnsSubmitEditedTodo.addEventListener('click', () => {
-            const i = currentTodo;
-            const editTodoName = document.getElementById('edit-todo-name').value.trim();
-            const date = document.getElementById('edit-due-date').value.trim();
-            const prio = document.getElementById('edit-priority').value.trim();
-            const note = document.getElementById('edit-notes').value.trim();
-
-            currentProject.todoArray[i].name = todoName;
-            currentProject.todoArray[i].dueDate = date;
-            currentProject.todoArray[i].priority = prio;
-            currentProject.todoArray[i].notes = note;
-
-            dialogEditTodo.close('submitted edited Todo')
-            editTodoForm.reset();
-            displayTodos(currentProject.todoArray);
-        });
-    })();
+    const editProject = () => {
+        editProTitle.value = currentProject.title;
+        editProDescription.value = currentProject.description;
+        dialogEditProject.showModal();
+    };
 
     const removeTodoDOM = (i) => {
         const getList = document.getElementsByClassName('todo');
         Array.from(getList)[i].remove();
         currentProject.deleteTodo(i);
     };
+
+    //update global variable currentProject
+    const updateCurrentProject = (id) => {
+        currentProject = projectArray.find((pro) => pro.projectID === id);
+    }
+
+    const deleteProject = (project) => {
+        { };
+    }
 
     //EVENT LISTENERS 
 
@@ -193,11 +192,6 @@ const domHandler = () => {
         });
     };
 
-    //logik fehlt noch
-    const updateCurrentProject = (id) => {
-        currentProject = projectArray.find((pro) => pro.projectID === id);
-    }
-
     //Handle project click -> either projectEdit OR show project details
     (function handleProjectClick() {
         allProjectsDiv.addEventListener('click', event => {
@@ -208,12 +202,13 @@ const domHandler = () => {
                     case 'add-todo-to-project':
                         dialogAddTodo.showModal();
                         break;
+
                     case 'edit-project':
-                        alert('edit');
+                        editProject();
                         break;
+
                     case 'delete-project':
-                        alert('delete');
-                        toBeEdited.classList.add('edit');
+                        deleteProject(selectedProject);
                         break;
                 };
             } else {
@@ -223,7 +218,6 @@ const domHandler = () => {
         });
     })();
 
-    //add cancel button listener
     (function addCancelBtnsListener() {
         Array.from(btnsCancel).forEach(btn => {
             btn.addEventListener("click", event => {
@@ -233,7 +227,6 @@ const domHandler = () => {
         });
     })();
 
-    //add submit Project button listener
     const addSumbmitProjListener = () => {
 
         Array.from(btnsSubmitPro).forEach(btn => {
@@ -247,9 +240,40 @@ const domHandler = () => {
                 displayNewProjects(newProject);
                 dialogNewProject.close("confirmed entry");
                 proForm.reset();
-            })
+            });
         });
-    }
+    };
+
+    (function submitEditedProject() {
+        btnSubmitEditedPro.addEventListener('click', () => {
+            const editedProTitle = document.getElementById('edit-project-title').value.trim();
+            const editedProDescription = document.getElementById('edit-description').value.trim();
+            currentProject.title = editedProTitle;
+            currentProject.description = editedProDescription;
+
+            Array.from(projectHeaders).forEach(pro => {
+                pro.innerHTML = editedProTitle;
+            });
+
+            projectHeaderDescr.innerHTML = editedProDescription;
+            dialogEditProject.close('submitted edited Project')
+            editProForm.reset();
+        });
+    })();
+
+    (function submitEditedTodo() {
+        btnsSubmitEditedTodo.addEventListener('click', () => {
+            const i = currentTodo;
+            const title = document.getElementById('edit-todo-name').value.trim();
+            const date = document.getElementById('edit-due-date').value.trim();
+            const prio = document.getElementById('edit-priority').value.trim();
+            const note = document.getElementById('edit-notes').value.trim();
+            currentProject.updateTodo(title, date, prio, note, i)
+            dialogEditTodo.close('submitted edited Todo')
+            editTodoForm.reset();
+            displayTodos(currentProject.todoArray);
+        });
+    })();
 
     return { BtnAddProject: btnAddProject, addBtnListeners: addSumbmitProjListener };
 };

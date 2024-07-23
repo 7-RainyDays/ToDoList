@@ -1,7 +1,17 @@
 jobs:
 
-Punkt 3.
-add Todos to projects.
+Bugs:
 
+standart project startet bei 2? 
+es wird rechts immer das standart projekt angezeigt.
+=> Der Zuweisungsoperator war falsch, = anstell von === verwendet.
 
-delete Projects/Todos
+Add Todo funktionieren lassen.
+// das aktuelle objekt in currentProjekt speichern 
+
+todos entsprechend bearbeiten können
+
+//TODOS werden nach dem Project switch nicht angezeigt,
+//update Project
+//todos mit checkox
+//reset form after entry

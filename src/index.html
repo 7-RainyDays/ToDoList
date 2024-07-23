@@ -15,8 +15,8 @@
             </div>
             <div class="all-projects-con">
                 <div class="project" data-project-id="1">
-                    <h3> Irres Projekt</h3>
-                    <p>Das ist ein irres Projekt</p>
+                    <h3 class="display-project-title"> Your First Project</h3>
+                    <p class="display-project-description">I got things to do.</p>
                     <div class="change-project">
                         <button class='add-todo-to-project' type="button">Add Todo</button>
                         <button class='edit-project' type="button">Edit</button>
@@ -25,12 +25,11 @@
                 </div>
             </div>
         </div>
-        <div class="right-section">Rechts+
+        <div class="right-section">
             <div class="project-details">
-                <h3 class="header-details">Project Title</h3>
-                <p class="">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Perspiciatis, numquam beatae at
-                    nostrum
-                    eveniet neque? Esse doloribus quibusdam perspiciatis maiores?</p>
+                <h3 class="display-project-title">Project Title</h3>
+                <p class="display-project-description">
+                </p>
             </div>
             <div class="container-todos">
                 <h3>Your Current Todos for the Project</h3>
@@ -50,6 +49,21 @@
                 <div>
                     <button class="cancel" type="button">Cancel</button>
                     <button class="confirm-project" type="button">Confirm</button>
+                </div>
+            </form>
+        </dialog>
+        <dialog id="edit-project-dialog">
+            <form id="edit-project-form" method="dialog">
+                <header>
+                    <h3>Edit Project</h3>
+                </header>
+                <label for="edit-project-title">Title:</label><br>
+                <input type="text" id="edit-project-title" name="edit-project-title"><br>
+                <label for="edit-description">Description:</label><br>
+                <textarea id="edit-description" name="edit-description" rows="4" cols="20"></textarea>
+                <div>
+                    <button class="cancel" type="button">Cancel</button>
+                    <button class="confirm-edit-project" type="button">Confirm</button>
                 </div>
             </form>
         </dialog>

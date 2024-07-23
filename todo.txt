@@ -6,12 +6,11 @@ standart project startet bei 2?
 es wird rechts immer das standart projekt angezeigt.
 => Der Zuweisungsoperator war falsch, = anstell von === verwendet.
 
-Add Todo funktionieren lassen.
-// das aktuelle objekt in currentProjekt speichern 
 
-todos entsprechend bearbeiten können
 
-//TODOS werden nach dem Project switch nicht angezeigt,
-//update Project
+
+
+
+//aktualisierung der objekte auslagern auf klassenmethoden
 //todos mit checkox
-//reset form after entry
+//delete project

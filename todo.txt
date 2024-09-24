@@ -1,17 +1,8 @@
-jobs:
+//speichern und abrufen von projekten und deren TODOS.
+-.->weiß gerade nicht wie ich das Speichern allgemein triggern kann. 
+// .onchange implementieren für projekte und todos
 
-Bugs:
+BUGS:
 
-standart project startet bei 2? 
-es wird rechts immer das standart projekt angezeigt.
-=> Der Zuweisungsoperator war falsch, = anstell von === verwendet.
-
-
-
-
-
-
-//aktualisierung der objekte auslagern auf klassenmethoden
-//todos mit checkox
-
-//delete project
+when removing all projects 
+when removing all todos

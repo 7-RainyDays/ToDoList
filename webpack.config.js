@@ -24,7 +24,7 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: './src/index.html', /* template nicht vergessen amigo :)) */
+            template: './src/index.html',
             title: 'ToDoList',
             filename: 'index.html',
             inject: 'body'
@@ -35,7 +35,7 @@ module.exports = {
             directory: path.join(__dirname, 'public'),
         },
         watchFiles: {
-            paths: ['src/index.html', 'src/index.js', 'src/style.css', 'src/changeDom.js'],
+            paths: ['src/index.html', 'src/index.js', 'src/style.css', 'src/changeDom.js', 'src/storage.js'],
             options: {
                 usePolling: false,
             },

@@ -1,4 +1,5 @@
-import { Project, Todo, projectArray } from "./project";
+import { Project, deleteProject } from "./project.js";
+import { saveToLocalStorage, projectArray } from "./storage.js";
 
 
 const domHandler = () => {
@@ -48,6 +49,16 @@ const domHandler = () => {
 
     //DOM MANIPULATION
 
+    const initStorageOnDOM = () => {
+        projectArray.forEach(proj => {
+            displayNewProjects(proj);
+        });
+        if (projectArray != []) {
+            currentProject = projectArray[0]
+            displayTodos(currentProject.todoArray);
+        };
+    };
+
     const displayRightSide = (proj) => {
         children[0].innerHTML = proj.title;
         children[1].innerHTML = proj.description;
@@ -64,7 +75,6 @@ const domHandler = () => {
     const displayNewProjects = (proj) => {
         const projectDiv = document.createElement('div');
         projectDiv.setAttribute('class', 'project');
-
         projectDiv.setAttribute('data-project-id', proj.projectID);
 
         const header = document.createElement('h3');
@@ -81,17 +91,14 @@ const domHandler = () => {
         const btnAddTodo = document.createElement('button');
         btnAddTodo.classList.add('add-todo-to-project');
         btnAddTodo.type = 'button';
-        btnAddTodo.innerHTML = 'Add Todo';
 
         const btnEditProject = document.createElement('button');
         btnEditProject.classList.add('edit-project');
         btnEditProject.type = 'button';
-        btnEditProject.innerHTML = 'Edit';
 
         const btnDeleteProject = document.createElement('button');
         btnDeleteProject.classList.add('delete-project');
         btnDeleteProject.type = 'button';
-        btnDeleteProject.innerHTML = 'Delete';
 
         changeProject.appendChild(btnAddTodo);
         changeProject.appendChild(btnEditProject);
@@ -111,29 +118,40 @@ const domHandler = () => {
             const listItem = document.createElement('li');
             listItem.setAttribute('class', 'todo');
 
-            for (let y = 0; y < todoValues.length; y++) {
+            for (let y = 0; y < todoValues.length - 1; y++) {
                 const p = document.createElement('p');
                 p.innerHTML = todoValues[y]
                 p.classList.add(todoKeys[y])
                 listItem.appendChild(p);
-            }
+            };
 
             const toBeDeleted = document.createElement('Button')
             toBeDeleted.type = 'button';
             toBeDeleted.classList.add('delete');
-            toBeDeleted.innerHTML = 'delete';
             toBeDeleted.addEventListener("click", () => removeTodoDOM(i));
 
             const toBeEdited = document.createElement('Button')
             toBeEdited.type = 'button';
             toBeEdited.classList.add('edit');
-            toBeEdited.innerHTML = 'edit';
             toBeEdited.addEventListener("click", () => editTodo(i));
 
-            listItem.appendChild(toBeDeleted);
+            const checkbox = document.createElement('input');
+            checkbox.type = "checkbox";
+            checkbox.name = "task-completed";
+            checkbox.checked = currentProject.todoArray[i].completed;
+            checkbox.addEventListener("click", event => {
+                const check = event.target.checked;
+                changeTodoChecked(check, i);
+            });
+            listItem.appendChild(checkbox);
             listItem.appendChild(toBeEdited);
+            listItem.appendChild(toBeDeleted);
             listTodos.appendChild(listItem);
         };
+    };
+
+    const changeTodoChecked = (check, i) => {
+        currentProject.todoArray[i].completed = check;
     };
 
     const editTodo = (i) => {
@@ -160,10 +178,6 @@ const domHandler = () => {
     //update global variable currentProject
     const updateCurrentProject = (id) => {
         currentProject = projectArray.find((pro) => pro.projectID === id);
-    }
-
-    const deleteProject = (project) => {
-        { };
     }
 
     //EVENT LISTENERS 
@@ -209,6 +223,7 @@ const domHandler = () => {
 
                     case 'delete-project':
                         deleteProject(selectedProject);
+                        removeProjectDOM(selectedProject);
                         break;
                 };
             } else {
@@ -217,6 +232,18 @@ const domHandler = () => {
             };
         });
     })();
+
+    const removeProjectDOM = (i) => {
+        const toBeRemoved = document.querySelector(`[data-project-id=${CSS.escape(i)}]`);
+        const removeTodos = document.querySelectorAll('.todo');
+
+        if (removeTodos != undefined) {
+            Array.from(removeTodos).forEach(todo => {
+                todo.remove();
+            });
+        };
+        toBeRemoved.remove();
+    };
 
     (function addCancelBtnsListener() {
         Array.from(btnsCancel).forEach(btn => {
@@ -234,12 +261,13 @@ const domHandler = () => {
 
                 const projectTitle = document.getElementById('project-title').value.trim();
                 const projectDescription = document.getElementById('description').value.trim();
-                const projectID = (projectArray.length + 1).toString() //toSting mit () :))
+                const projectID = (projectArray.length + 1).toString();
                 const newProject = new Project(projectID, projectTitle, projectDescription);
                 projectArray.push(newProject);
                 displayNewProjects(newProject);
                 dialogNewProject.close("confirmed entry");
                 proForm.reset();
+                //saveToStorage();
             });
         });
     };
@@ -275,7 +303,7 @@ const domHandler = () => {
         });
     })();
 
-    return { BtnAddProject: btnAddProject, addBtnListeners: addSumbmitProjListener };
+    return { BtnAddProject: btnAddProject, addBtnListeners: addSumbmitProjListener, initStorageOnDOM };
 };
 
 export default domHandler;

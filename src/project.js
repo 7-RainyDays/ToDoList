@@ -16,10 +16,10 @@ export class Project {
         this.todoArray.splice(i, 1);
     }
 
-    updateTodo(title, date, prio, notes, i) {
-        this.todoArray[i].title = title;
-        this.todoArray[i].date = date;
-        this.todoArray[i].prio = prio;
+    updateTodo(name, dueDate, priority, notes, i) {
+        this.todoArray[i].name = name;
+        this.todoArray[i].dueDate = dueDate;
+        this.todoArray[i].priority = priority;
         this.todoArray[i].notes = notes;
     }
 }
@@ -31,9 +31,11 @@ export class Todo {
         this.dueDate = dueDate;
         this.priority = priority;
         this.notes = notes;
+        this.completed = false;
     }
 };
 
-export const projectArray = [];
-const defaultProject = new Project('1', 'Your First Project', 'I got things to do.')
-projectArray.push(defaultProject);
+
+export const deleteProject = (i) => {
+    projectArray = projectArray.filter(i => projectArray.projectID != i);
+}

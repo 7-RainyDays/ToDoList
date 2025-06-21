@@ -1,11 +1,12 @@
 import { Project, deleteProject } from "./project.js";
-import { saveToLocalStorage, projectArray } from "./storage.js";
+import { saveToLocalStorage, projectArrayData } from "./storage.js";
 
 
 const domHandler = () => {
 
     let currentProject = "";
     let currentTodo = "";
+    let projectArray = projectArrayData;
 
     //dialogs
     const dialogNewProject = document.getElementById('add-project-dialog');
@@ -222,7 +223,7 @@ const domHandler = () => {
                         break;
 
                     case 'delete-project':
-                        deleteProject(selectedProject);
+                        deleteProject(selectedProject, projectArray);
                         removeProjectDOM(selectedProject);
                         break;
                 };

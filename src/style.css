@@ -16,8 +16,8 @@ body {
     display: flex;
     flex-direction: column;
     font-size: medium;
-    background-color: blue;
-    color: white;
+    background-color: #4f81c7;
+    color: #fcfafa;
     padding: 20px;
 }
 
@@ -35,33 +35,34 @@ body {
 .left-section {
     width: 30vb;
 
-    background-color: antiquewhite;
+    background-color: white;
 }
 
 .all-projects-con {
     display: flex;
     flex-direction: column;
     flex: 1 1 1;
-    background-color: beige;
+    background-color: white;
 }
 
 .project {
-    border-bottom: 2px solid black;
+    margin: 20px;
+    padding: 30px;
+    background-color: #f0d78c;
+    border: 2px solid #4f81c7;
+    border-radius: 7%;
 }
 
 .add-project-btn {
     display: flex;
     justify-content: center;
-    padding: 10px;
+    padding: 20px;
 }
 
 .right-section {
     width: 80%;
 }
 
-.project {
-    padding: 20px;
-}
 
 /* Einheitsgröße für buttons*/
 .change-project>button,
@@ -96,4 +97,22 @@ input[type=checkbox] {
     flex-direction: column;
     gap: 30px;
     padding: 20px;
+}
+
+
+
+.first-color {
+    background: #f0d78c;
+}
+
+.second-color {
+    background: #fcfafa;
+}
+
+.third-color {
+    background: #64c4ed;
+}
+
+.fourth-color {
+    background: #4f81c7;
 }

@@ -62,7 +62,7 @@ const loadStorage = (key) => {
     return jsonData ? JSON.parse(jsonData) : alert("Failed to load Storage Data");
 }
 
-export let projectArray = loadStorage('storedDataArray');
+export let projectArrayData = loadStorage('storedDataArray');
 
 const loadStorageData = (projectArray) => {
     projectArray.forEach(element => {
@@ -70,7 +70,7 @@ const loadStorageData = (projectArray) => {
     });
 };
 
-/* Proxy handler Versuch: Problem Verschachtelung des Objektes. 
+/* Proxy handler Versuch: Problem Verschachtelung des Objektes.
 const handler = {
     set(target, prop, value, receiver) {
         target[prop] = value;
@@ -82,7 +82,7 @@ const handler = {
 const proxySaveChanges = new Proxy(projectArray, handler);
 */
 
-loadStorageData(projectArray);
+loadStorageData(projectArrayData);
 
 
 

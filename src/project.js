@@ -36,6 +36,6 @@ export class Todo {
 };
 
 
-export const deleteProject = (i) => {
-    projectArray = projectArray.filter(i => projectArray.projectID != i);
+export const deleteProject = (i, arr) => {
+    return arr.filter(i => arr.projectID != i);
 }

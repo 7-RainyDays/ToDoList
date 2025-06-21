@@ -4,5 +4,4 @@
 
 BUGS:
 
-when removing all projects 
-when removing all todos
+when removing projects
